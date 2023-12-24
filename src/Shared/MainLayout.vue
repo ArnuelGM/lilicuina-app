@@ -1,15 +1,12 @@
 <template>
   <main class="max-w-6xl mx-auto">
-    <header>
-      <h1 class="text-bold text-2xl">Fyesta</h1>
-    </header>
+    <AppHeader class="w-full p-2 sticky top-0"/>
     <router-view></router-view>
-    <footer class="sticky bottom-0">
-      <Player />
-    </footer>
+    <Player class="sticky bottom-0"/>
   </main>
 </template>
 
 <script setup>
-  import Player from '../components/player/Player.vue';
+  import AppHeader from '../components/header/AppHeader.vue';
+import Player from '../components/player/Player.vue';
 </script>

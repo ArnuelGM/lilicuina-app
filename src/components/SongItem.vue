@@ -7,8 +7,8 @@
         <Disc class="size-full text-emerald-700" />
       </div>
     </picture>
-    <div class="flex-grow flex flex-col self-stretch p-2">
-      <p class="font-bold text-md text-emerald-100">Erase una vez</p>
+    <div class="flex-grow flex flex-col self-stretch py-2 pr-2">
+      <p class="font-bold text-md text-emerald-900 dark:text-white">Erase una vez</p>
       <p class="text-sm text-gray-600">Porta</p>
     </div>
     <div class="shrink-0 flex flex-col self-stretch mr-2 mt-2">
