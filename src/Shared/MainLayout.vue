@@ -1,6 +1,6 @@
 <template>
   <main class="max-w-6xl mx-auto">
-    <AppHeader class="w-full p-2 sticky top-0"/>
+    <AppHeader class="w-full p-2 sticky top-0 z-10"/>
     <router-view></router-view>
     <Player class="sticky bottom-0"/>
   </main>
