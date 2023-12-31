@@ -1,5 +1,5 @@
 <template>
-  <section class="p-2 w-full h-40">
+  <section class="p-2 w-full">
     <div class="size-full bg-black rounded-xl flex flex-col shadow-xl shadow-white/10 p-2 gap-2">
       <div class="flex flex-nowrap gap-2">
         <!-- Cover -->
@@ -15,9 +15,9 @@
           <p class="text-sm text-emerald-700">Porta</p>
         </div>
         <div>
-          <button @click="toggleLike()">
-            <Heart v-if="!liked" />
-            <HeartFilled v-else />
+          <button @click="toggleLike()" :class="{'text-emerald-600': liked, 'text-white/60': !liked}" aria-label="like">
+            <Heart v-if="!liked"></Heart>
+            <HeartFilled v-else></HeartFilled>
           </button>
         </div>
       </div>
@@ -25,27 +25,27 @@
       <!-- Controls -->
       <div class="w-full flex-grow flex flex-col justify-between">
         <div class="flex items-center justify-center gap-8 shrink-0">
-          <button>
-            <Shuffle />
+          <button class="p-1 text-white/80" aria-label="shuffle">
+            <Shuffle></Shuffle>
           </button>
-          <button class="p-1" aria-lable="back">
-            <Backward />
+          <button class="p-1 text-white/80" aria-label="backward">
+            <Backward></Backward>
           </button>
-          <button @click="wavesurfer?.playPause()" class="p-1" aria-lable="play">
-            <Pause v-if="isPlaying" />
-            <Play v-else />
+          <button @click="playPause()" class="p-2 mb-1 bg-emerald-600 text-black rounded-full" aria-label="play">
+            <Pause v-if="isPlaying"></Pause>
+            <Play v-else></Play>
           </button>
-          <button class="p-1" aria-lable="next">
-            <Forward />
+          <button class="p-1 text-white/80" aria-label="forward">
+            <Forward></Forward>
           </button>
-          <button>
-            <Repeat />
+          <button class="p-1 text-white/80" aria-label="repeat">
+            <Repeat></Repeat>
           </button>
         </div>
         <div class="flex items-center gap-2">
-          <small class="text-xs">{{ currentTime }}</small>
+          <time class="text-xs w-10 text-white">{{ currentTime }}</time>
           <div class="flex-grow" id="wavearea"></div>
-          <small class="text-xs">{{ duration }}</small>
+          <time class="text-xs w-10 text-right text-white">{{ duration }}</time>
         </div>
       </div>
     </div>
@@ -62,18 +62,21 @@
   import Heart from "../../Shared/icons/heart.vue";
   import HeartFilled from "../../Shared/icons/heart-filled.vue";
   import WaveSurfer from "wavesurfer.js";
-  import { onMounted } from "vue";
+  import { onMounted, ref } from "vue";
   import song from '../../assets/song.mp3'
 
-  let wavesurfer
-  let isPlaying = false
-  let liked = false
-  let currentTime = '00:00'
-  let duration = '00:00'
+  const wavesurfer = ref(null)
+  const isPlaying = ref(false)
+  const liked = ref(false)
+  const currentTime = ref('00:00')
+  const duration = ref('00:00')
 
   function toggleLike() {
-    liked = !liked
-    console.log(liked)
+    liked.value = !liked.value
+  }
+
+  function playPause() {
+    wavesurfer.value?.playPause()
   }
 
   /**
@@ -83,11 +86,11 @@
   function formatTime(time) {
     const minutes = Math.floor(time / 60)
     const seconds = Math.floor(time % 60);
-    return `${ String(minutes).padStart(2, '') }:${ String(seconds).padStart(2, '0') }`
-}
+    return `${ String(minutes).padStart(2, '0') }:${ String(seconds).padStart(2, '0') }`
+  }
 
   onMounted(() => {
-    wavesurfer = WaveSurfer.create({
+    wavesurfer.value = WaveSurfer.create({
       url: song,
       container: "#wavearea",
       height: 20,
@@ -95,15 +98,15 @@
       normalize: false,
       cursorWidth: 2,
       interact: true,
-      waveColor: '#082f49',
-      progressColor: "#d8b4fe",
+      waveColor: '#022c22',
+      progressColor: "#047857",
       cursorColor: '#ca8a04',
     })
-    wavesurfer.setVolume(.8)
-    wavesurfer.on('play', () => isPlaying = wavesurfer.isPlaying())
-    wavesurfer.on('pause', () => isPlaying = wavesurfer.isPlaying())
-    wavesurfer.on('timeupdate', (event) => currentTime = formatTime(event))
-    wavesurfer.on('ready', (event) => duration = formatTime(event))
+    wavesurfer.value.setVolume(.8)
+    wavesurfer.value.on('play', () => isPlaying.value = wavesurfer.value.isPlaying())
+    wavesurfer.value.on('pause', () => isPlaying.value = wavesurfer.value.isPlaying())
+    wavesurfer.value.on('timeupdate', (event) => currentTime.value = formatTime(event))
+    wavesurfer.value.on('ready', (event) => duration.value = formatTime(event))
   })
 
 </script>
