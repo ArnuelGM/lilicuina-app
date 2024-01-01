@@ -1,23 +1,18 @@
 <style scoped>
-  .shadow-text {
-    text-shadow: 
-      0 0 2px #6b7280,
-      0 0 2px #6b7280,
-      0 0 2px #6b7280,
-      0 0 2px #6b7280,
-      0 0 2px #6b7280;
-  }
+.text-shadow {
+  text-shadow: 1px 1px 0 rgb(0 0 0 / 80%);
+}
 </style>
 <template>
   <div class="size-full relative overflow-hidden shadow-md rounded-lg">
-    <p class="absolute m-2 top-0 left-0 text-white font-semibold leading-4 shadow-text">
+    <h3 class="text-shadow absolute p-2 pb-4 top-0 left-0 text-white font-semibold leading-4 w-full bg-gradient-to-b from-black/40 to-transparent">
       {{ title ?? 'Cassis'}}
-    </p>
+    </h3>
     <img 
       class="size-full object-cover object-center"
       :src="img ?? 'https://i.scdn.co/image/ab67616d0000b2736e565a6102762a45274fd486'" 
       alt="Song cover">
-    <p class="absolute bottom-0 left-0 font-medium m-2 text-sm text-white shadow-text">
+    <p class="text-shadow absolute bottom-0 left-0 font-medium p-2 pt-4 text-sm text-white w-full bg-gradient-to-t from-black/40 to-transparent">
       {{ artist ?? 'The Gazzets'}}
     </p>
   </div>
