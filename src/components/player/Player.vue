@@ -1,6 +1,6 @@
 <template>
   <section class="p-2 w-full">
-    <div class="size-full bg-black rounded-xl flex flex-col shadow-xl shadow-white/10 p-2 gap-2">
+    <div class="size-full bg-gradient-to-br border border-neutral-900 from-neutral-800 to-black sm:from-neutral-800 sm:to-black md:from-neutral-950 md:to-black rounded-xl flex flex-col shadow-lg p-2 gap-2">
       <div class="flex flex-nowrap gap-2">
         <!-- Cover -->
         <picture class="size-16 shrink-0 rounded-lg overflow-hidden">
