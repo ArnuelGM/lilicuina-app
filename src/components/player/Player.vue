@@ -16,8 +16,8 @@
         </div>
         <div>
           <button @click="toggleLike()" :class="{'text-emerald-600': liked, 'text-white/60': !liked}" aria-label="like">
-            <Heart v-if="!liked"></Heart>
-            <HeartFilled v-else></HeartFilled>
+            <Heart v-if="!liked"/>
+            <HeartFilled v-else style="filter: drop-shadow(0 0 3px rgb(6 95 70))"/>
           </button>
         </div>
       </div>
@@ -26,20 +26,20 @@
       <div class="w-full flex-grow flex flex-col justify-between">
         <div class="flex items-center justify-center gap-8 shrink-0">
           <button class="p-1 text-white/80" aria-label="shuffle">
-            <Shuffle></Shuffle>
+            <Shuffle />
           </button>
           <button class="p-1 text-white/80" aria-label="backward">
-            <Backward></Backward>
+            <Backward />
           </button>
-          <button @click="playPause()" class="p-2 mb-1 bg-emerald-600 text-black rounded-full" aria-label="play">
-            <Pause v-if="isPlaying"></Pause>
-            <Play v-else></Play>
+          <button @click="playPause()" :style="{'filter': (isPlaying ? 'drop-shadow(0 0 4px rgb(5 150 105 / 50%))' : 'none')}" class="p-2 mb-1 bg-emerald-600 text-black rounded-full transition-[filter]" aria-label="play">
+            <Pause v-if="isPlaying" />
+            <Play v-else />
           </button>
           <button class="p-1 text-white/80" aria-label="forward">
-            <Forward></Forward>
+            <Forward />
           </button>
           <button class="p-1 text-white/80" aria-label="repeat">
-            <Repeat></Repeat>
+            <Repeat />
           </button>
         </div>
         <div class="flex items-center gap-2">

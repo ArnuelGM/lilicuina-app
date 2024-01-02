@@ -4,7 +4,7 @@
 }
 </style>
 <template>
-  <div class="size-full relative overflow-hidden shadow-md rounded-lg">
+  <div class="size-full relative overflow-hidden shadow-md rounded-lg cursor-pointer">
     <h3 class="text-shadow absolute z-10 p-2 pb-4 top-0 left-0 text-white font-semibold leading-4 w-full bg-gradient-to-b from-black/40 to-transparent">
       {{ title ?? 'Cassis'}}
     </h3>
