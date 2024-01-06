@@ -42,11 +42,7 @@
             <Repeat />
           </button>
         </div>
-        <div class="flex items-center gap-2">
-          <time class="text-xs w-10 text-white">{{ currentTime }}</time>
-          <div class="flex-grow" id="wavearea"></div>
-          <time class="text-xs w-10 text-right text-white">{{ duration }}</time>
-        </div>
+        <Timeline @set-time="setCurrentTime($event)" :max="duration" :value="currentTime" class="w-full" />
       </div>
     </div>
   </section>
@@ -61,52 +57,25 @@
   import Forward from "../../Shared/icons/forward.vue";
   import Heart from "../../Shared/icons/heart.vue";
   import HeartFilled from "../../Shared/icons/heart-filled.vue";
-  import WaveSurfer from "wavesurfer.js";
   import { onMounted, ref } from "vue";
   import song from '../../assets/song.mp3'
+  import Timeline from "./Timeline.vue";
+  import useAudioPlayer from "../../composables/usePlayer";
 
-  const wavesurfer = ref(null)
-  const isPlaying = ref(false)
+  const { currentTime, duration, togglePlay, isPlaying, setSrc, setCurrentTime } = useAudioPlayer()
+
   const liked = ref(false)
-  const currentTime = ref('00:00')
-  const duration = ref('00:00')
 
   function toggleLike() {
     liked.value = !liked.value
   }
 
   function playPause() {
-    wavesurfer.value?.playPause()
-  }
-
-  /**
-   * Return time formated to min:sec
-   * @param {number} time 
-   */
-  function formatTime(time) {
-    const minutes = Math.floor(time / 60)
-    const seconds = Math.floor(time % 60);
-    return `${ String(minutes).padStart(2, '0') }:${ String(seconds).padStart(2, '0') }`
+    togglePlay()
   }
 
   onMounted(() => {
-    wavesurfer.value = WaveSurfer.create({
-      url: song,
-      container: "#wavearea",
-      height: 20,
-      barHeight: 0.01,
-      normalize: false,
-      cursorWidth: 2,
-      interact: true,
-      waveColor: '#022c22',
-      progressColor: "#047857",
-      cursorColor: '#ca8a04',
-    })
-    wavesurfer.value.setVolume(.8)
-    wavesurfer.value.on('play', () => isPlaying.value = wavesurfer.value.isPlaying())
-    wavesurfer.value.on('pause', () => isPlaying.value = wavesurfer.value.isPlaying())
-    wavesurfer.value.on('timeupdate', (event) => currentTime.value = formatTime(event))
-    wavesurfer.value.on('ready', (event) => duration.value = formatTime(event))
+    setSrc(song)
   })
 
 </script>
