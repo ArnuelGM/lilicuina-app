@@ -1,12 +1,15 @@
 <template>
   <div class="flex items-center gap-2">
     <time class="text-xs w-10 text-white">{{ currentTime }}</time>
-    <progress 
-      class="flex-grow h-1 rounded-full cursor-pointer" 
-      :max="max ?? 0" 
-      :value="value ?? 0" 
-      @click="calcSetTime($event)">
-    </progress>
+    <div 
+      role="progressbar"
+      class="flex-grow rounded-full h-1 cursor-pointer bg-white/5 relative" 
+      @click="calcSetTime($event)" >
+      <div
+        class="h-full bg-emerald-600 rounded-full" 
+        :style="{'width': `${timelineProgressValue}%`}">
+      </div>
+    </div>
     <time class="text-xs w-10 text-right text-white">{{ duration }}</time>
   </div>
 </template>
@@ -30,6 +33,12 @@
 
   const currentTime = computed(() => formatTime(props.value))
   const duration = computed(() => formatTime(props.max))
+
+  const timelineProgressValue = computed(() => {
+    const percent = props.value / props.max * 100
+    if(isNaN(percent)) return 0
+    return percent
+  })
 
   /**
    * Return time formated to min:sec
