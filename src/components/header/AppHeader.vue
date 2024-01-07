@@ -1,17 +1,19 @@
 <template>
-  <header class="z-20 h-16 flex items-center justify-between backdrop-blur dark:bg-black/80 bg-white/90">
-    <h1 
-      class="font-black text-3xl text-transparent bg-gradient-to-br from-emerald-700 via-purple-400 to-white bg-clip-text">
-      Fyesta
-    </h1>
-    <div class="flex items-center gap-4">
-      <button aria-label="Search">
+  <header class="z-20 h-16 flex items-center justify-between">
+    <div class="py-2 px-6 rounded-full dark:bg-black/60 bg-white/80 backdrop-blur shadow-lg">
+      <h1 
+        class="font-black text-3xl text-transparent bg-gradient-to-br from-emerald-700 via-purple-400 to-white bg-clip-text">
+        Fyesta
+      </h1>
+    </div>
+    <div class="flex items-center gap-2">
+      <button aria-label="Search" class="p-2 dark:bg-black/60 dark:text-white bg-white/80 text-black shadow-md backdrop-blur hover:scale-105 transition-transform rounded-full">
         <Search/>
       </button>
-      <button aria-label="Playlist">
+      <button aria-label="Playlist" class="p-2 dark:bg-black/60 dark:text-white bg-white/80 text-black shadow-md backdrop-blur hover:scale-105 transition-transform rounded-full">
         <Playlist/>
       </button>
-      <button aria-label="Upload">
+      <button aria-label="Upload" class="p-2 dark:bg-black/60 dark:text-white bg-white/80 text-black shadow-md backdrop-blur hover:scale-105 transition-transform rounded-full">
         <Upload/>
       </button>
     </div>

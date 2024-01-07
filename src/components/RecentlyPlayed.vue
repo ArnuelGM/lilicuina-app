@@ -19,7 +19,7 @@
     </div>
     <ul class="flex flex-nowrap overflow-x-auto gap-4 recently-played snap-x snap-mandatory" ref="slider">
       <li v-for="recently in recentlyPlayed" class="w-32 h-40 rounded-lg shrink-0 snap-start">
-        <PopularItem v-bind="recently" />
+        <PopularItem v-bind="recently" class="group" />
       </li>
     </ul>
   </section>
