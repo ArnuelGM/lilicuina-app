@@ -1,14 +1,22 @@
+<style scoped>
+  [role=progressbar]::before {
+    content: "";
+    display: block;
+    height: 100%;
+    border-radius: 9999px;
+    background-color: rgb(5 150 105);
+    position: relative;
+    left: 0;
+    width: var(--progressValue);
+  }
+</style>
 <template>
   <div class="flex items-center gap-2">
     <time class="text-xs w-10 text-white">{{ currentTime }}</time>
     <div 
       role="progressbar"
       class="flex-grow rounded-full h-1 cursor-pointer bg-white/5 relative" 
-      @click="calcSetTime($event)" >
-      <div
-        class="h-full bg-emerald-600 rounded-full" 
-        :style="{'width': `${timelineProgressValue}%`}">
-      </div>
+      @click="calcSetTime($event)" :style="{'--progressValue': `${timelineProgressValue}%`}">
     </div>
     <time class="text-xs w-10 text-right text-white">{{ duration }}</time>
   </div>
@@ -54,7 +62,7 @@
   function calcSetTime(event) {
     const percent = event.offsetX / event.target.clientWidth;
     let setValue = percent * props.max
-    if (isNaN(setValue)) return
+    if (isNaN(setValue)) return 
     else emit('setTime', setValue)
   }
 
