@@ -1,7 +1,35 @@
 <style scoped>
+  .recently-played {
+    --sb-track-color: transparent;
+    --sb-thumb-color: rgb(255 255 255 / 20%);
+    --sb-size: 8px;
+
+    scrollbar-color: transparent var(--sb-track-color);
+    transition: all linear .3s;
+  }
+
+  .recently-played:hover {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+
   .recently-played::-webkit-scrollbar {
-    width: 0;
-    height: 0;
+    width: var(--sb-size);
+    height: var(--sb-size);
+  }
+
+  .recently-played::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 10px;
+  }
+
+  .recently-played::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 10px;
+    transition: all linear .3s;
+  }
+  .recently-played:hover::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 10px;
   }
 </style>
 <template>
