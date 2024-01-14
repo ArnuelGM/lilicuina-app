@@ -1,48 +1,80 @@
+<style scoped>
+  .desplazar {
+    animation: desplazar 10s linear infinite alternate;
+    /* transform: translateX(var(--left)); */
+  }
+
+  @keyframes desplazar {
+    15% {
+      transform: translateX(0);
+    }
+    85%, 100% {
+      transform: translateX(var(--left));
+    }
+
+  }
+</style>
 <template>
   <section class="p-2 w-full z-20">
-    <div class="size-full bg-gradient-to-br border border-neutral-900 from-neutral-800 to-black sm:from-neutral-800 sm:to-black md:from-neutral-950 md:to-black rounded-xl flex flex-col shadow-lg p-2 gap-2">
-      <div class="flex flex-nowrap gap-2">
-        <!-- Cover -->
-        <picture class="size-16 shrink-0 rounded-lg overflow-hidden">
-          <img 
-            class="size-full object-cover object-center" 
-            src="https://i.scdn.co/image/ab67616d0000b273aa8935e536e0a8889fa0d051" 
-            alt="Song cover">
-        </picture>
-        <!-- Song name / Artist -->
-        <div class="flex-grow w-full">
-          <p class="font-bold text-sm text-white">Erase una vez</p>
-          <p class="text-sm text-emerald-700">Porta</p>
-        </div>
-        <div>
-          <button @click="toggleLike()" :class="{'text-emerald-600': liked, 'text-white/60': !liked}" aria-label="like">
-            <Heart v-if="!liked"/>
-            <HeartFilled v-else style="filter: drop-shadow(0 0 3px rgb(6 95 70))"/>
-          </button>
-        </div>
-      </div>
+    <div class="size-full bg-gradient-to-br border border-neutral-900 from-neutral-800 to-black sm:from-neutral-800 sm:to-black md:from-neutral-950 md:to-black rounded-xl flex shadow-lg p-2 gap-2">
+      <!-- Cover -->
+      <picture class="h-28 aspect-square shrink-0 rounded-[.25rem] overflow-hidden shadow">
+        <img 
+          class="size-full object-cover object-center" 
+          src="https://i.scdn.co/image/ab67616d0000b273aa8935e536e0a8889fa0d051" 
+          alt="Song cover">
+      </picture>
 
-      <!-- Controls -->
-      <div class="w-full flex-grow flex flex-col justify-between">
-        <div class="flex items-center justify-center gap-8 shrink-0">
-          <button class="p-1 text-white/80" aria-label="shuffle">
-            <Shuffle />
-          </button>
-          <button class="p-1 text-white/80" aria-label="backward">
-            <Backward />
-          </button>
-          <button @click="playPause()" :style="{'filter': (isPlaying ? 'drop-shadow(0 0 4px rgb(5 150 105 / 50%))' : 'none')}" class="p-2 mb-1 bg-emerald-600 text-black rounded-full transition-[filter]" aria-label="play">
-            <Pause v-if="isPlaying" />
-            <Play v-else />
-          </button>
-          <button class="p-1 text-white/80" aria-label="forward">
-            <Forward />
-          </button>
-          <button class="p-1 text-white/80" aria-label="repeat">
-            <Repeat />
-          </button>
+      <div class="flex-grow">
+        <div class="flex flex-nowrap gap-2">
+          <!-- Metadata -->
+          <div class="flex-grow overflow-hidden">
+            <div class="w-full overflow-hidden h-5 relative" ref="despCont">
+              <p class="font-semibold text-sm text-white absolute whitespace-nowrap desplazar" :style="{'--left': left}" ref="despTit">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              </p>
+            </div>
+            <p class="text-sm text-emerald-700">Porta</p>
+          </div>
+          <div>
+            <button @click="toggleLike()" :class="{'text-emerald-600': liked, 'text-white/60': !liked}" aria-label="like">
+              <Heart v-if="!liked"/>
+              <HeartFilled v-else style="filter: drop-shadow(0 0 3px rgb(6 95 70))"/>
+            </button>
+          </div>
         </div>
-        <Timeline @set-time="setCurrentTime($event)" :max="duration" :value="currentTime" class="w-full" />
+  
+        <div class="w-full flex-grow flex flex-col justify-between">
+          <!-- Controls -->
+          <div class="flex items-center justify-center gap-x-5 sm:gap-x-8 md:gap-x-10 shrink-0">
+            <button class="p-1 text-white/80" aria-label="shuffle">
+              <Shuffle />
+            </button>
+            <button class="p-1 text-white/80" aria-label="backward">
+              <Backward />
+            </button>
+            <button 
+              @click="playPause()" 
+              :style="{'filter': (isPlaying ? 'drop-shadow(0 0 4px rgb(5 150 105 / 50%))' : 'none')}" 
+              class="p-2 mb-1 bg-emerald-600 text-black rounded-full transition-[filter]" 
+              aria-label="play">
+              <Pause v-if="isPlaying" />
+              <Play v-else />
+            </button>
+            <button class="p-1 text-white/80" aria-label="forward">
+              <Forward />
+            </button>
+            <button class="p-1 text-white/80" aria-label="repeat">
+              <Repeat />
+            </button>
+          </div>
+          <Timeline 
+            @set-time="setCurrentTime($event)" 
+            :max="duration" 
+            :value="currentTime" 
+            class="w-full mt-1" 
+          />
+        </div>
       </div>
     </div>
   </section>
@@ -65,6 +97,9 @@
   const { currentTime, duration, togglePlay, isPlaying, setSrc, setCurrentTime } = useAudioPlayer()
 
   const liked = ref(false)
+  const left = ref('0px')
+  const despCont = ref(null)
+  const despTit = ref(null)
 
   function toggleLike() {
     liked.value = !liked.value
@@ -74,8 +109,18 @@
     togglePlay()
   }
 
+  function updateLeft() {
+    const desplazamiento = despCont.value.clientWidth - despTit.value.scrollWidth
+    left.value = isNaN(desplazamiento) || desplazamiento >= 0
+      ? '0px' 
+      : `${desplazamiento}px`
+  }
+
   onMounted(() => {
     setSrc(song)
+
+    window.addEventListener('resize', updateLeft)
+    setTimeout(() => updateLeft(), 100)
   })
 
 </script>
