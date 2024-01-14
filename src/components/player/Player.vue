@@ -30,11 +30,15 @@
           <!-- Metadata -->
           <div class="flex-grow overflow-hidden">
             <div class="w-full overflow-hidden h-5 relative" ref="despCont">
-              <p class="font-semibold text-sm text-white absolute whitespace-nowrap desplazar" :style="{'--left': left}" ref="despTit">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              <p class="font-bold text-sm text-white absolute whitespace-nowrap desplazar" :style="{'--left': left}" ref="despTit">
+                Érase una vez
               </p>
             </div>
-            <p class="text-sm text-emerald-700">Porta</p>
+            <div class="w-full overflow-hidden h-5 relative">
+              <p class="font-semibold text-sm text-emerald-700 w-full truncate">
+                Porta
+              </p>
+            </div>
           </div>
           <div>
             <button @click="toggleLike()" :class="{'text-emerald-600': liked, 'text-white/60': !liked}" aria-label="like">
