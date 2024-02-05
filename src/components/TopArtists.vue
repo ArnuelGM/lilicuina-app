@@ -1,8 +1,11 @@
 <template>
   <section class="p-2">
-    <h2 class="font-bold text-xl mb-4">Top Artists</h2>
-    <ul class="flex flex-nowrap overflow-x-auto gap-x-4 custom-scrollbar snap-x snap-mandatory">
-      <li v-for="artist in artists" class="flex-shrink-0 flex flex-col items-center group snap-start">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="font-bold text-xl">Top Artists</h2>
+      <SliderControllers @prev="nextElement($event)" @next="nextElement($event)"/>
+    </div>
+    <ul class="flex flex-nowrap overflow-x-auto gap-x-4 custom-scrollbar snap-x snap-mandatory" ref="slider">
+      <li v-for="artist in artists" class="flex-shrink-0 flex flex-col items-center group snap-start cursor-pointer">
         <picture class="size-32 overflow-hidden rounded-full shadow-md">
           <img :src="artist.image" class="size-full object-cover object-center group-hover:scale-105 transition-transform">
         </picture>
@@ -14,6 +17,11 @@
 
 <script setup>
   import { ref } from 'vue'
+  import SliderControllers from './SliderControllers.vue';
+  import useSlider from '../composables/useSlider';
+
+  const slider = ref('slider')
+  const { nextElement } = useSlider(slider)
 
   const artists = ref([
     {
