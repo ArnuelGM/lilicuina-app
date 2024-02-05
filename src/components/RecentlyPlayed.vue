@@ -1,37 +1,3 @@
-<style scoped>
-  .recently-played {
-    --sb-track-color: transparent;
-    --sb-thumb-color: rgb(255 255 255 / 20%);
-    --sb-size: 8px;
-
-    scrollbar-color: transparent var(--sb-track-color);
-    transition: all linear .3s;
-  }
-
-  .recently-played:hover {
-    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
-  }
-
-  .recently-played::-webkit-scrollbar {
-    width: var(--sb-size);
-    height: var(--sb-size);
-  }
-
-  .recently-played::-webkit-scrollbar-track {
-    background: var(--sb-track-color);
-    border-radius: 10px;
-  }
-
-  .recently-played::-webkit-scrollbar-thumb {
-    background: transparent;
-    border-radius: 10px;
-    transition: all linear .3s;
-  }
-  .recently-played:hover::-webkit-scrollbar-thumb {
-    background: var(--sb-thumb-color);
-    border-radius: 10px;
-  }
-</style>
 <template>
   <section class="p-2">
     <div class="flex items-center justify-between mb-4">
@@ -45,7 +11,7 @@
         </button>
       </div>
     </div>
-    <ul class="flex flex-nowrap overflow-x-auto gap-4 recently-played snap-x snap-mandatory" ref="slider">
+    <ul class="flex flex-nowrap overflow-x-auto gap-4 custom-scrollbar snap-x snap-mandatory" ref="slider">
       <li v-for="recently in recentlyPlayed" class="w-32 h-40 rounded-lg shrink-0 snap-start">
         <PopularItem v-bind="recently" class="group" />
       </li>
@@ -67,7 +33,7 @@
     },
     {
       img: 'https://i.scdn.co/image/ab67616d00001e021c40418d1c37d727e8e91b04',
-      title: 'Coild You be Loved',
+      title: 'Could You be Loved',
       artist: 'Bob Marley'
     },
     {

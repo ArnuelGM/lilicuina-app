@@ -13,3 +13,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-scrollbar {
+  --sb-track-color: transparent;
+  --sb-thumb-color: rgb(0 0 0 / 20%);
+  --sb-size: 8px;
+
+  scrollbar-color: transparent var(--sb-track-color);
+  transition: all linear .3s;
+}
+.custom-scrollbar:hover {
+  scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+}
+.custom-scrollbar::-webkit-scrollbar {
+  width: var(--sb-size);
+  height: var(--sb-size);
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 10px;
+  transition: all linear .3s;
+}
+.custom-scrollbar:hover::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .custom-scrollbar {
+    --sb-thumb-color: rgb(255 255 255 / 20%);
+  }
+}
