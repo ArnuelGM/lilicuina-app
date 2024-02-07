@@ -25,6 +25,10 @@
 
   const artists = ref([
     {
+      name: 'LoFi Girl',
+      image: 'https://i.scdn.co/image/ab67616d00001e026a1dba7aac5452dfd8f85a01'
+    },
+    {
       name: 'Porta',
       image: 'https://i.scdn.co/image/ab67616100005174ea4b0b2796621cc1ce130c1f'
     },
