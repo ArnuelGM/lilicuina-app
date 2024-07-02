@@ -1,5 +1,5 @@
 <template>
-  <section class="p-2">
+  <section>
     <h2 class="font-bold text-xl mb-4">Populars Songs</h2>
     <div class="grid gap-2 grid-cols-4 auto-rows-[10rem] md:auto-rows-[11rem] lg:auto-rows-[13rem] lg:gap-4">
       <div class="rounded-lg col-span-2">

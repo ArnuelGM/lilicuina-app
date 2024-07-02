@@ -1,6 +1,6 @@
 <template>
-  <article class="flex items-start flex-nowrap">
-    <picture class="shrink-0 size-20 overflow-hidden p-2">
+  <article class="flex items-start flex-nowrap gap-x-2">
+    <picture class="shrink-0 size-20 overflow-hidden">
       <img v-if="Math.random() >= .5" class="size-full object-cover object-center rounded"
         src="https://i.scdn.co/image/ab67616d0000b273aa8935e536e0a8889fa0d051" alt="song cover">
       <div v-else class="size-full bg-black rounded" role="img">

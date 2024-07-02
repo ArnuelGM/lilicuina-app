@@ -12,13 +12,12 @@
 </style>
 <template>
   <div class="gap-y-1 flex flex-wrap justify-between">
-    <div 
-      role="progressbar"
-      class="flex-grow rounded-full h-1 cursor-pointer bg-white/5 relative w-full overflow-hidden" 
+    <div role="progressbar"
+      class="flex-grow rounded-full h-1 cursor-pointer bg-black/20 dark:bg-white/5 relative w-full overflow-hidden"
       @click="calcSetTime($event)" :style="{'--progressValue': `${timelineProgressValue}%`}">
     </div>
-    <time class="text-[10px] text-white opacity-60 leading-none">{{ currentTime }}</time>
-    <time class="text-[10px] text-white opacity-60 leading-none">{{ duration }}</time>
+    <time class="text-xs dark:text-white opacity-60 leading-none">{{ currentTime }}</time>
+    <time class="text-xs dark:text-white opacity-60 leading-none">{{ duration }}</time>
   </div>
 </template>
 <script setup>

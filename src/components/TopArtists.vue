@@ -1,5 +1,5 @@
 <template>
-  <section class="p-2">
+  <section>
     <div class="flex items-center justify-between mb-4">
       <h2 class="font-bold text-xl">Top Artists</h2>
       <SliderControllers @prev="nextElement($event)" @next="nextElement($event)"/>
