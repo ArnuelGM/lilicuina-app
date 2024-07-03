@@ -76,7 +76,13 @@
               <Repeat />
             </button>
           </div>
-          <Timeline @set-time="setCurrentTime($event)" :max="duration" :value="currentTime" class="w-full mt-1" />
+          <Timeline 
+            class="w-full mt-1" 
+            @set-time="setCurrentTime($event)"
+            :max="duration"
+            :value="currentTime"
+            theme="dark"
+          />
         </div>
       </div>
     </div>
@@ -92,7 +98,7 @@ import Backward from "../../Shared/icons/backward.vue";
 import Forward from "../../Shared/icons/forward.vue";
 import Heart from "../../Shared/icons/heart.vue";
 import HeartFilled from "../../Shared/icons/heart-filled.vue";
-import { onMounted, ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import song from '../../assets/song.mp3'
 import Timeline from "./Timeline.vue";
 import useAudioPlayer from "../../composables/usePlayer";
@@ -138,9 +144,12 @@ function showPlayingView() {
 
 onMounted(() => {
   setSrc(song)
-
   window.addEventListener('resize', updateLeft)
-  setTimeout(() => updateLeft(), 100)
+  setTimeout(() => {
+    if( despCont.value ) updateLeft()
+  }, 100)
 })
+
+onUnmounted(() => window.removeEventListener('resize', updateLeft))
 
 </script>

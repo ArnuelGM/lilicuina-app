@@ -19,5 +19,5 @@ export const useMainLayoutStore = defineStore('main-layout', () => {
     playerVisible,
     setHeaderVisible,
     setPlayerVisible,
-  }
+  };
 })

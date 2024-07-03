@@ -1,7 +1,7 @@
 <template>
   <section class="w-full">
-    <div class="flex flex-col gap-4 sm:flex-row">
-      <picture class="overflow-hidden rounded-md sm:w-1/3 mt-4 sm:shrink-0">
+    <div class="flex flex-col gap-4 sm:flex-row px-6 pt-8">
+      <picture class="overflow-hidden rounded-md sm:w-1/3 sm:shrink-0">
         <img src="https://i.scdn.co/image/ab67616d0000b273aa8935e536e0a8889fa0d051"
           class="w-full h-full object-cover" />
       </picture>
@@ -27,7 +27,7 @@
                 <Heart v-else />
               </button>
               <button class="text-emerald-600" aria-label="resize">
-                <Resize style="filter: drop-shadow(0 0 3px rgb(6 95 70))" />
+                <Resize @click="goBack" style="filter: drop-shadow(0 0 3px rgb(6 95 70))" />
               </button>
             </div>
           </div>
@@ -35,7 +35,7 @@
             @set-time="setCurrentTime($event)" 
             :max="duration" 
             :value="currentTime" 
-            class="w-full my-4" />
+            class="w-full my-8" />
           <div class="w-full flex flex-col justify-between">
             <!-- Controls -->
             <div class="flex items-center justify-between gap-x-5 sm:gap-x-8 md:gap-x-10 shrink-0">
@@ -67,7 +67,7 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import { useMainLayoutStore } from '../Stores/useMainLayoutStore';
 import Heart from '../Shared/icons/heart.vue';
 import Forward from '../Shared/icons/forward.vue';
@@ -79,9 +79,41 @@ import Shuffle from '../Shared/icons/shuffle.vue';
 import Resize from '../Shared/icons/resize.vue';
 import HeartFilled from '../Shared/icons/heart-filled.vue';
 import Timeline from '../components/player/Timeline.vue';
+import useAudioPlayer from "../composables/usePlayer";
+import song from '../assets/song.mp3'
+import { useRouter } from 'vue-router';
+
+const {
+  currentTime,
+  duration,
+  togglePlay,
+  isPlaying,
+  setSrc,
+  setCurrentTime
+} = useAudioPlayer()
+
+const liked = ref(false)
+
+const router = useRouter()
 
 const layoutStore = useMainLayoutStore()
 
-onMounted(() => layoutStore.setPlayerVisible(false))
+onMounted(() => {
+  setSrc(song)
+  layoutStore.setPlayerVisible(false)
+})
 onUnmounted(() => layoutStore.setPlayerVisible(true))
+
+function toggleLike() {
+  liked.value = !liked.value
+}
+
+function playPause() {
+  togglePlay()
+}
+
+function goBack() {
+  router.back()
+}
+
 </script>

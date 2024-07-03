@@ -13,15 +13,33 @@
 <template>
   <div class="gap-y-1 flex flex-wrap justify-between">
     <div role="progressbar"
-      class="flex-grow rounded-full h-1 cursor-pointer bg-black/20 dark:bg-white/5 relative w-full overflow-hidden"
-      @click="calcSetTime($event)" :style="{'--progressValue': `${timelineProgressValue}%`}">
+      class="flex-grow rounded-full h-1 cursor-pointer relative w-full overflow-hidden"
+      @click="calcSetTime($event)"
+      :style="{'--progressValue': `${timelineProgressValue}%`}"
+      :class="{
+        'bg-white/5': theme === `dark`,
+        'bg-black/20': theme === `ligth`
+      }"
+    >
     </div>
-    <time class="text-xs dark:text-white opacity-60 leading-none">{{ currentTime }}</time>
-    <time class="text-xs dark:text-white opacity-60 leading-none">{{ duration }}</time>
+    <time 
+      class="text-xs opacity-60 leading-none"
+      :class="{
+        'text-white': theme === `dark`,
+        'text-black': theme === `ligth`,
+      }"
+    >{{ currentTime }}</time>
+    <time 
+      class="text-xs dark:text-white opacity-60 leading-none"
+      :class="{
+        'text-white': theme === `dark`,
+        'text-black': theme === `ligth`,
+      }"
+    >{{ duration }}</time>
   </div>
 </template>
 <script setup>
-  import { computed } from 'vue'
+  import { computed, onMounted, ref } from 'vue'
 
   /**
   * Emits
@@ -33,11 +51,21 @@
   /**
    * Props
    */
-  const props = defineProps([
-    'max',
-    'value'
-  ])
+  const props = defineProps({
+    max: {
+      type: Number,
+      default: 0
+    },
+    value: {
+      type: Number,
+      default: 0
+    },
+    theme: {
+      default: undefined
+    }
+  })
 
+  const theme = ref("dark")
   const currentTime = computed(() => formatTime(props.value))
   const duration = computed(() => formatTime(props.max))
 
@@ -65,4 +93,16 @@
     else emit('setTime', setValue)
   }
 
+  function defineTheme() {
+    if(window?.matchMedia('(prefers-color-scheme: dark)')?.matches) {
+      theme.value = props.theme ?? "dark"
+    }
+    else {
+      theme.value = props.theme ?? "ligth"
+    }
+  }
+
+  onMounted(() => {
+    defineTheme()
+  })
 </script>
