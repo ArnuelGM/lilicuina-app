@@ -1,6 +1,6 @@
 <template>
   <section class="w-full">
-    <div class="flex flex-col gap-4 sm:flex-row px-6 pt-8">
+    <div class="flex flex-col gap-4 sm:flex-row pt-8">
       <picture class="overflow-hidden rounded-md sm:w-1/3 sm:shrink-0">
         <img src="https://i.scdn.co/image/ab67616d0000b273aa8935e536e0a8889fa0d051"
           class="w-full h-full object-cover" />

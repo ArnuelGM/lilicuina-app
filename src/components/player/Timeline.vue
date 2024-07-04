@@ -40,6 +40,8 @@
 </template>
 <script setup>
   import { computed, onMounted, ref } from 'vue'
+import { useColorSchemeStore } from '../../Stores/useColorSchemeColorStore';
+import { storeToRefs } from 'pinia';
 
   /**
   * Emits
@@ -65,9 +67,11 @@
     }
   })
 
-  const theme = ref("dark")
+  const colorSchemeStore = useColorSchemeStore()
+  const { colorScheme } = storeToRefs(colorSchemeStore)
   const currentTime = computed(() => formatTime(props.value))
   const duration = computed(() => formatTime(props.max))
+  const theme = computed(() => props.theme ?? colorScheme.value)
 
   const timelineProgressValue = computed(() => {
     const percent = props.value / props.max * 100
@@ -92,17 +96,4 @@
     if (isNaN(setValue)) return 
     else emit('setTime', setValue)
   }
-
-  function defineTheme() {
-    if(window?.matchMedia('(prefers-color-scheme: dark)')?.matches) {
-      theme.value = props.theme ?? "dark"
-    }
-    else {
-      theme.value = props.theme ?? "ligth"
-    }
-  }
-
-  onMounted(() => {
-    defineTheme()
-  })
 </script>

@@ -55,8 +55,15 @@
         </div>
 
         <div class="w-full flex-grow flex flex-col justify-between">
+          <Timeline 
+            class="w-full mt-1" 
+            @set-time="setCurrentTime($event)"
+            :max="duration"
+            :value="currentTime"
+            theme="dark"
+          />
           <!-- Controls -->
-          <div class="flex items-center justify-center gap-x-5 sm:gap-x-8 md:gap-x-10 shrink-0">
+          <div class="flex items-center justify-between sm:justify-center sm:gap-x-8 md:gap-x-10 shrink-0">
             <button class="p-1 text-white/80" aria-label="shuffle">
               <Shuffle />
             </button>
@@ -76,13 +83,6 @@
               <Repeat />
             </button>
           </div>
-          <Timeline 
-            class="w-full mt-1" 
-            @set-time="setCurrentTime($event)"
-            :max="duration"
-            :value="currentTime"
-            theme="dark"
-          />
         </div>
       </div>
     </div>

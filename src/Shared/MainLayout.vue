@@ -1,5 +1,5 @@
 <template>
-  <main class="max-w-6xl mx-auto flex-shrink-0 relative px-2">
+  <main class="max-w-6xl mx-auto flex-shrink-0 relative px-6">
     <AppHeader v-if="headerVisible" class="w-full sticky top-0 z-10" />
     <router-view></router-view>
     <Player v-if="playerVisible" class="sticky bottom-2" />
