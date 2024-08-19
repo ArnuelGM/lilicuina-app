@@ -9,7 +9,7 @@
         <picture class="size-32 overflow-hidden rounded-full shadow-md">
           <img :src="artist.image" class="size-full object-cover object-center group-hover:scale-105 transition-transform">
         </picture>
-        <p class="mt-2">{{ artist.name }}</p>
+        <p class="mt-2 text-sm tracking-wider">{{ artist.name }}</p>
       </li>
     </ul>
   </section>

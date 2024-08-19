@@ -19,69 +19,79 @@
 <template>
   <section class="w-full z-20">
     <div
-      class="size-full bg-gradient-to-br border border-neutral-900 from-neutral-800 to-black sm:from-neutral-800 sm:to-black md:from-neutral-950 md:to-black rounded-xl flex shadow-lg p-2 gap-2">
-      <!-- Cover -->
-      <picture class="h-28 aspect-square shrink-0 rounded-[.25rem] overflow-hidden shadow">
-        <img class="size-full object-cover object-center"
-          src="https://i.scdn.co/image/ab67616d0000b273aa8935e536e0a8889fa0d051" alt="Song cover">
-      </picture>
-
-      <div class="flex-grow">
-        <div class="flex flex-nowrap gap-2">
-          <!-- Metadata -->
-          <div class="flex-grow overflow-hidden">
-            <div class="w-full overflow-hidden h-5 relative" ref="despCont">
-              <p class="font-bold text-sm text-white absolute whitespace-nowrap desplazar" :style="{ '--left': left }"
-                ref="despTit">
-                Érase una vez
-              </p>
+      class="size-full bg-gradient-to-br border border-neutral-900 from-neutral-800 to-black sm:from-neutral-800 sm:to-black md:from-neutral-950 md:to-black shadow-lg flex justify-center">
+      <div class="size-full flex px-4 py-2 gap-2 max-w-6xl">
+        <!-- Cover -->
+        <picture
+          @click="showPlayingView"
+          class="h-28 aspect-square shrink-0 rounded-[.25rem] overflow-hidden shadow cursor-pointer">
+          <img class="size-full object-cover object-center" style="view-transition-name: cover-image;"
+            src="https://i.scdn.co/image/ab67616d0000b273aa8935e536e0a8889fa0d051" alt="Song cover">
+        </picture>
+        <div class="flex-grow">
+          <div class="flex flex-nowrap gap-2">
+            <!-- Metadata -->
+            <div class="flex-grow overflow-hidden">
+              <div class="w-full overflow-hidden h-5 relative" ref="despCont">
+                <p 
+                  class="font-bold text-sm text-white absolute whitespace-nowrap desplazar"
+                  style="view-transition-name: song-title;"
+                  :style="{ '--left': left }"
+                  ref="despTit">
+                  Érase una vez
+                </p>
+              </div>
+              <div class="w-full overflow-hidden h-5 relative">
+                <p
+                  style="view-transition-name: song-artist-name;" 
+                  class="font-semibold text-sm text-emerald-700 w-full truncate">
+                  Porta
+                </p>
+              </div>
             </div>
-            <div class="w-full overflow-hidden h-5 relative">
-              <p class="font-semibold text-sm text-emerald-700 w-full truncate">
-                Porta
-              </p>
+            <div class="inline-flex gap-2 items-start">
+              <button @click="toggleLike()" :class="{ 'text-emerald-600': liked, 'text-white/60': !liked }"
+                aria-label="like">
+                <Heart v-if="!liked" />
+                <HeartFilled v-else style="filter: drop-shadow(0 0 3px rgb(6 95 70))" />
+              </button>
+              <button @click="showPlayingView" class="text-white/60" aria-label="resize">
+                <Resize style="filter: drop-shadow(0 0 3px rgb(6 95 70))" />
+              </button>
             </div>
           </div>
-          <div class="inline-flex gap-2 items-start">
-            <button @click="toggleLike()" :class="{ 'text-emerald-600': liked, 'text-white/60': !liked }"
-              aria-label="like">
-              <Heart v-if="!liked" />
-              <HeartFilled v-else style="filter: drop-shadow(0 0 3px rgb(6 95 70))" />
-            </button>
-            <button class="text-white/60" aria-label="resize">
-              <Resize @click="showPlayingView" style="filter: drop-shadow(0 0 3px rgb(6 95 70))" />
-            </button>
-          </div>
-        </div>
 
-        <div class="w-full flex-grow flex flex-col justify-between">
-          <Timeline 
-            class="w-full mt-1" 
-            @set-time="setCurrentTime($event)"
-            :max="duration"
-            :value="currentTime"
-            theme="dark"
-          />
-          <!-- Controls -->
-          <div class="flex items-center justify-between sm:justify-center sm:gap-x-8 md:gap-x-10 shrink-0">
-            <button class="p-1 text-white/80" aria-label="shuffle">
-              <Shuffle />
-            </button>
-            <button class="p-1 text-white/80" aria-label="backward">
-              <Backward />
-            </button>
-            <button @click="playPause()"
-              :style="{ 'filter': (isPlaying ? 'drop-shadow(0 0 4px rgb(5 150 105 / 50%))' : 'none') }"
-              class="p-2 mb-1 bg-emerald-600 text-black rounded-full transition-[filter]" aria-label="play">
-              <Pause v-if="isPlaying" />
-              <Play v-else />
-            </button>
-            <button class="p-1 text-white/80" aria-label="forward">
-              <Forward />
-            </button>
-            <button class="p-1 text-white/80" aria-label="repeat">
-              <Repeat />
-            </button>
+          <div class="w-full flex-grow flex flex-col justify-between">
+            <Timeline 
+              class="w-full mt-1" 
+              @set-time="setCurrentTime($event)"
+              :max="duration"
+              :value="currentTime"
+              theme="dark"
+            />
+            <!-- Controls -->
+            <div class="flex items-center justify-between sm:justify-center sm:gap-x-8 md:gap-x-10 shrink-0">
+              <button class="p-1 text-white/80" aria-label="shuffle">
+                <Shuffle />
+              </button>
+              <button class="p-1 text-white/80" aria-label="backward">
+                <Backward />
+              </button>
+              <button 
+                style="view-transition-name: control-play-pause;" 
+                @click="playPause()"
+                :style="{ 'filter': (isPlaying ? 'drop-shadow(0 0 4px rgb(5 150 105 / 50%))' : 'none') }"
+                class="p-2 mb-1 bg-emerald-600 text-black rounded-full transition-[filter]" aria-label="play">
+                <Pause v-if="isPlaying" />
+                <Play v-else />
+              </button>
+              <button class="p-1 text-white/80" aria-label="forward">
+                <Forward />
+              </button>
+              <button class="p-1 text-white/80" aria-label="repeat">
+                <Repeat />
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -137,9 +147,17 @@ function updateLeft() {
 }
 
 function showPlayingView() {
-  router.push({
-    path: 'playing-now'
-  })
+  if (!document.startViewTransition)
+    router.push({
+      path: 'playing-now'
+    })
+  else {
+    document.startViewTransition(() => {
+      router.push({
+        path: 'playing-now'
+      })
+    });
+  }
 }
 
 onMounted(() => {

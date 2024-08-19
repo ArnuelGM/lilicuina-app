@@ -2,7 +2,9 @@
   <section class="w-full">
     <div class="flex flex-col gap-4 sm:flex-row pt-8">
       <picture class="overflow-hidden rounded-md sm:w-1/3 sm:shrink-0">
-        <img src="https://i.scdn.co/image/ab67616d0000b273aa8935e536e0a8889fa0d051"
+        <img 
+          style="view-transition-name: cover-image;"
+          src="https://i.scdn.co/image/ab67616d0000b273aa8935e536e0a8889fa0d051"
           class="w-full h-full object-cover" />
       </picture>
 
@@ -11,12 +13,15 @@
           <div class="flex flex-nowrap gap-2">
             <div class="flex-grow overflow-hidden">
               <div class="w-full overflow-hidden" ref="despCont">
-                <h1 class="font-bold text-2xl dark:text-white leading-6">
+                <h1 style="view-transition-name: song-title;"
+                  class="font-bold text-2xl dark:text-white leading-6">
                   Erase una vez
                 </h1>
               </div>
               <div class="w-full overflow-hidden">
-                <p class="font-semibold text-lg text-emerald-700 w-full">
+                <p 
+                  style="view-transition-name: song-artist-name;" 
+                  class="font-semibold text-lg text-emerald-700 w-full">
                   Porta
                 </p>
               </div>
@@ -26,8 +31,8 @@
                 <HeartFilled v-if="liked" style="filter: drop-shadow(0 0 3px rgb(6 95 70))" />
                 <Heart v-else />
               </button>
-              <button class="text-emerald-600" aria-label="resize">
-                <Resize @click="goBack" style="filter: drop-shadow(0 0 3px rgb(6 95 70))" />
+              <button @click="goBack" class="text-emerald-600" aria-label="resize">
+                <Resize style="filter: drop-shadow(0 0 3px rgb(6 95 70))" />
               </button>
             </div>
           </div>
@@ -46,6 +51,7 @@
                 <Backward />
               </button>
               <button @click="playPause()"
+                style="view-transition-name: control-play-pause;"
                 :style="{ 'filter': (isPlaying ? 'drop-shadow(0 0 4px rgb(5 150 105 / 50%))' : 'none') }"
                 class="size-16 grid place-content-center p-2 mb-1 bg-emerald-600 text-black rounded-full transition-[filter]"
                 aria-label="play">
@@ -113,7 +119,11 @@ function playPause() {
 }
 
 function goBack() {
-  router.back()
+  if (!document.startViewTransition)
+    router.back()
+  else {
+    document.startViewTransition(() => router.push({ path: '/' }))
+  }
 }
 
 </script>

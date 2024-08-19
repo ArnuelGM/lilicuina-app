@@ -9,7 +9,7 @@
         <PopularItem class="group" title="Feliz Navidad 8" artist="Arcangel" img="https://i.scdn.co/image/ab67616d00001e023e50a1c918378ccc5ce8c276"/>
       </div>
       <div class="rounded-lg col-span-2 md:col-span-1">
-        <PopularItem class="group" title="Lofi beats" artist="LoFi Girl" img="https://i.scdn.co/image/ab67706c0000da84f396bdf13f6473f86bf4e2c0"/>
+        <PopularItem class="group" title="Lofi beats" artist="LoFi Girl" img="https://i.scdn.co/image/ab67706c0000da848bc80c95b9d248cf462c0bd1"/>
       </div>
       <div class="rounded-lg col-span-2 md:col-span-1">
         <PopularItem class="group" title="Erase una vez" artist="Porta" img="https://i.scdn.co/image/ab67616d0000b273aa8935e536e0a8889fa0d051"/>
